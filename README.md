@@ -8,16 +8,18 @@ Function Building
 FiveThirtyEight Data 
 Codebook also known as README file.
 
-SOURCE (package)
- 
-https://github.com/caesar0301/awesome-public-datasets. : [Rudeboybert (username)], "An R package that provides access to the code and data sets published by FiveThirtyEight https://github.com/fivethirtyeight/data. Note that while we received guidance from editors at 538, this package is not officially published by 538."
+SOURCE (repository data)
+
+https://github.com/caesar0301/awesome-public-datasets.  Copyright (c) 2014 Xiaming, Copyright (c) 2014-2015 Xiaming Chen and other contributors to this list.
+
+https://github.com/rudeboybert/fivethirtyeight : [Rudeboybert (username)], "An R package that provides access to the code and data sets published by FiveThirtyEight https://github.com/fivethirtyeight/data. Note that while we received guidance from editors at 538, this package is not officially published by 538."
 
 Contact info: 
-ktheobald@smu.edu
+TheobaldK
 
 
 Questions
-1.	 GitHub Cloning (20 points): Using Git, clone the following GitHub repository to your local machine: https://github.com/caesar0301/awesome-public-datasets.  In RMarkdown, please show the code (commented out, as it’s not R syntax) that you used to create a new directory, navigate to the appropriate directory, and clone the repository to it.  One Git command per line, please.
+1.	GitHub Cloning (20 points): Using Git, clone the following GitHub repository to your local machine: https://github.com/caesar0301/awesome-public-datasets.  In RMarkdown, please show the code (commented out, as it’s not R syntax) that you used to create a new directory, navigate to the appropriate directory, and clone the repository to it.  One Git command per line, please.
 
 2.	Data Summary (20 points): From this aforementioned cloned repo, please extract titanic.csv.zip.  To be clear, this does not have to be done in Git or command line.  
 a.	In R, please read in titanic.csv via either read.table() or read.csv(), assigning it to df.  This dataset follows the passengers aboard the Titanic, including their fees paid, rooms rented, and survivorship status.
