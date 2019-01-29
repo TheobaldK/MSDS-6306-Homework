@@ -51,3 +51,33 @@ b.	Create a README.md file which explains the purpose of the repository, the top
 c.	In one (or more) of the nested directories, post your RMarkdown script, HTML file, and data from ‘fivethirtyeight.’  Make sure that in your README or elsewhere that you credit fivethirtyeight in some way.
 d.	In your RMarkdown script, please provide the link to this GitHub so the grader can see it.
 
+
+SESSION INFO
+
+R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin15.6.0 (64-bit)
+Running under: macOS Sierra 10.12.6
+
+Matrix products: default
+BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/3.5/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] fivethirtyeight_0.4.0.9000 readr_1.3.1               
+[3] plyr_1.8.4                 ggplot2_3.1.0             
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.0       withr_2.1.2      crayon_1.3.4     R6_2.3.0        
+ [5] grid_3.5.1       gtable_0.2.0     scales_1.0.0     pillar_1.3.1    
+ [9] rlang_0.3.0.1    lazyeval_0.2.1   remotes_2.0.2    rstudioapi_0.9.0
+[13] labeling_0.3     tools_3.5.1      munsell_0.5.0    hms_0.4.2       
+[17] xfun_0.4         yaml_2.2.0       compiler_3.5.1   pkgconfig_2.0.2 
+[21] colorspace_1.3-2 knitr_1.21       tibble_1.4.2    
+
+
