@@ -4,7 +4,7 @@ Assignment 4
 
 Introduction: 
 
-In this assignment we are learning webscrap data from 2 different websites. The first quesitons we will sort the information pulled from the website IMDb and we will build a table. The 2nd question will provide us with a table and we will use this to draw a graph of the Spurs players and their field goal percentage. The end result with the Spurs graph shows the Point Forward (PF) has the highest field goal percentage. 
+In this assignment we are learning to webscrap data from 2 different websites. The first quesitons we will sort the information pulled from the website IMDb and build a table. The 2nd question we will obtain a table and draw a graph of the Spurs players and their field goal percentage. Overall, the Spurs graph demonstrates the Point Forward (PF) has the highest field goal percentage. 
 
 SessionInfo:
 
@@ -23,15 +23,15 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] stringr_1.3.1   rvest_0.3.2     xml2_1.2.0      imdbapi_0.1.0   RCurl_1.95-4.11 bitops_1.0-6    RJSONIO_1.3-1.1
- [8] jsonlite_1.6    XML_3.98-1.16   tidyr_0.8.2    
+ [1] tidyr_0.8.2     rvest_0.3.2     xml2_1.2.0      stringr_1.3.1   imdbapi_0.1.0   RCurl_1.95-4.11 bitops_1.0-6   
+ [8] RJSONIO_1.3-1.1 jsonlite_1.6    XML_3.98-1.16  
 
 loaded via a namespace (and not attached):
  [1] Rcpp_1.0.0       pillar_1.3.1     compiler_3.5.1   bindr_0.1.1      tools_3.5.1      digest_0.6.18   
  [7] evaluate_0.12    tibble_1.4.2     pkgconfig_2.0.2  rlang_0.3.1      rstudioapi_0.9.0 curl_3.2        
 [13] yaml_2.2.0       xfun_0.4         bindrcpp_0.2.2   dplyr_0.7.8      httr_1.4.0       knitr_1.21      
 [19] tidyselect_0.2.5 glue_1.3.0       R6_2.3.0         rmarkdown_1.11   purrr_0.3.0      selectr_0.4-1   
-[25] magrittr_1.5     htmltools_0.3.6  rsconnect_0.8.13 assertthat_0.2.0 stringi_1.2.4    crayon_1.3.4    
+[25] magrittr_1.5     htmltools_0.3.6  rsconnect_0.8.13 assertthat_0.2.0 stringi_1.2.4    crayon_1.3.4 
 
 
 Contribution: 
