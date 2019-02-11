@@ -1,0 +1,90 @@
+---
+title: "KTheobald_LiveSession5_Codebook"
+author: "K. Theobald"
+date: "2/11/2019"
+output:
+  html_document:
+    keep_md: true
+---
+
+## Codebook for Homework 5 in R Markdown.
+
+This homework session makes use of 2 text files. One text file contains most popular baby names for 2015 along with their gender. The text file also contains how often the baby names was used in the 2015. The other text file is for 2016 with the same, baby names, gender and reoccurrence  of the baby names. We can conclude in 2015 and 2016 the most common top ten names for babies include: Emma, Oliva, Noah, Liam, Sophia, Ava, Mason, William, Jacob, Isabella. We also make reasonable conclusion with the information, in 2015 and 2016 the top 10 girl names are the following: Emma, Olivia, Sophia, Ava, Isabella, Mia, Charlotte, Abigail, Emily, Harper. There is a text file available listing the top 10 girl names in 2015-2016 under Girlnames.csv. 
+
+###__Variables:__ 
+#### There are no specific units other than the numbers indicating  the number of babies. 
+
+  * babynames : File name containing the yob2016.txt data.
+  * babynames2015 : File name containing the yob2016.txt data.
+  * df  : Dataframe holding the table babynames from 2016
+  * Baby Names : Variable containing the baby names for both the y2016 and y2015 dataframe.
+  * Gender : Variable containing the gender used in both the y2016 and y2015 dataframe.
+  * Babies : Variable containing the number of babies with the name. Described in both y2016 and y2015 dataframes.
+  * dup_names : Contains the duplicate name in the df representing the 2016 baby names. 
+  * y2016 : Dataframe for the 2016 baby names. 
+  * y2015 : Dataframe for the 2015 baby names.
+  * Gender.x : 2015 baby genders from the y2015 dataframe. 
+  * Gender.y : 2016 baby gender from the y2016
+  * Babies.x : 2015 number of babies using a particular name in from the y2015 dataframe.
+  * Babies.y : 2016 number of babies using a particular name in from the y2016 dataframe.
+  * Final : Dataframe of the merged y2015 and y2016 dataframes. 
+  * Final$Total : Column variable, Total held within the Final dataframe, totaling ea. baby names in 2015/2016.
+  * MostPopular : Dataframe holding most popular names in 2015/2016 regardless of gender. 
+  * CleanFinal: Dataframe of the tidy data for the merged y2015/y2016 dataframes. 
+  * CleanFinal$Total: Object containing the sum of merged Babies.x and Babies.y.
+  * CleanFinal$Gender : Object containing the gender of the babies name in the dataframe CleanFinal.
+  * CleanFinal$Names : Object containing the babies name. 
+  * CelanFinal$Babies : Object renamed from CleanFinal$Total with readable name. 
+  * TopGirlNames : Dataframe holding the girl names from 2015/2016 and number of babies using each name.
+  * TopGirlNames$Names : Object with only the girl names in 2015/2016.
+  * TopGirlNames$"Total Babies": Object with the number of babies hold only the 2015/2016 girl naames, descending order. 
+  
+###**Instruction List**
+####Begin with saving the 2015 and 2016 text files in an accessible working directory. 
+####This code makes use of the Unix OS. The two text files are in the following directory and this same directory will be the location of the saved work while processing:
+  * /Desktop/Kari/SMU /Doing Data Science/Homework
+
+####Import the 2016 text file names (yob2016.txt) and save it the the file name, babynames. 
+
+###**R Code to obtain tidy data set.**
+#### The following code used to display the name misspelled with yyy: 
+  * dup.names<-grep("yyy", df$"Baby Names")
+  
+#### The following code used to display read in text tables.
+  * y2015<-read.tables(babynames2015, header=FALSE, sep=",")
+  * y2016<-read.tables(babynames, header=FALSE, sep=";")
+  
+#### The following code to pull header and tail on dataframes. 
+  * head(y2015)
+  * tail(y2015,10)  Displays only the last 10 lines. 
+  
+#### The following code to merge the x dataframe y2015 and the y dataframe y2016. Leaving all NA's out of the summary. 
+  * Final<-merge (x=y2015, y=y2016, by = "Baby Names", all = FALSE)  Join by Baby Names.
+  * CleanFinal<-merge (y2015, y2016, union("Baby Names", "Gender"))  Join by Baby Names and Gender.
+  
+#### The following code to make a new column, Total from the merged dataframe called Final. Total all baby names from the dataframes y2015 and y2016. 
+  * Final$Total<-rowSums(Final(, c("Babies.x", "Babies.y")))
+  * Sum(Final$Total)      Display the grand total of babies represented in year 2015 and 2016.
+
+#### The following code to create a new dataframe, CleanFinal with only the Baby Names, Gender, Total from the merged dataframe CleanFinal. 
+  * CleanFinal<- data.frame(CleanFinal$"Baby Names", CleanFinal$Gender, CleanFinal$Total)
+
+#### The following code to create a new dataframe for only the top girl names out of 2015 and 2016. Dataframe is  TopGirlNames. 
+  * TopGirlNames<- data_frame(CleanFinal$Names, CleanFinal$Babies)
+  
+|    Names   |      Total Babies   |
+|:----------:|:-------------------:|
+|   Emma     |            39829    |
+|   Olivia   |            38884    |
+|   Sophia   |            33451    |
+|   Ava      |            32577    |
+|   Isabella |            30296    |
+|   Mia      |            29237    |
+|   Charlotte|            24411    |
+|   Abigail  |            24070    |  
+|   Emily    |            22692    |
+|   Harper   |            21016    |
+  
+#### The following code will write a csv file called Girlname. It will include a header from the dataframes row names. It will replace na's with a blank; however there are no na's in the dataframe TopGirlNames. The cvs file will only contain the top 10 girl names used for 2015 /2016 based off the text file. 
+  * write.csv(TopGirlNames[1:10,], file= "Girlnames.csv", row.names=TRUE, na="")
+
