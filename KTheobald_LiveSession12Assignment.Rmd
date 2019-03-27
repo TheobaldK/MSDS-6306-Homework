@@ -1,0 +1,187 @@
+---
+title: "Theobald_Livesession12Assignment"
+author: "K. Theobald"
+date: "3/25/2019"
+output:
+  html_document:
+    keep_md: true
+---
+#  setwd("~/Desktop/Kari/SMU /Doing Data Science/Homework")
+
+```{r, echo=TRUE, cache=TRUE}
+sessionInfo()
+#install.packages("timeSeries")
+#install.packages("fpp")
+#install.packages("expsmooth")
+
+#install.packages("zoo")
+#install.packages("timeData")
+#install.packages("fma")
+#install.packages("lmtest")
+#install.packages("tseries")
+
+#libraries
+#library(timeSeries)
+#library(expsmooth)
+#library(forecast)
+
+```
+
+
+# Question 1. 
+# a. We’ll be using EuStockMarkets for this question. Using the EUStockMarkets data, pull specifically the DAX index. 
+```{r, echo=TRUE, cache=TRUE}
+summary(EuStockMarkets)
+EU <- as.data.frame(EuStockMarkets)
+head(EU)
+dax <- EU$DAX
+summary(dax)
+```
+
+# b. Create a rudimentary plot of the data.  Make the line blue.  Give an informative title.  Label the axes accurately.  In 1997, an event happened you want to indicate; add a vertical red line to your plot which divides pre-1997 and post-1997 information.
+
+```{r, echo=TRUE, cache=TRUE}
+ts.dax <- EuStockMarkets[,"DAX"]     #assign the variable the DAX data. 
+plot(ts.dax, col="blue", ylab = "Points", xlab = "Years", main = "EU Stock Exhange : DAX")   # plots the timeseries of DAX
+abline(v=1997, col="red")
+```
+
+# c.	Decompose the time series into its components (i.e., trend, seasonality, random).  Keep in mind that this is a multiplicative model you want.  Create a plot of all decomposed components.  As before, make all lines blue and have a vertical divider at the year 1997. 
+
+```{r, echo=TRUE, cache=TRUE}
+daxdata <- EuStockMarkets[, "DAX"] 
+decomp.daxdata <- decompose(daxdata, type="mult") # use type = "additive" for additive components
+plot (decomp.daxdata, col="blue") 
+abline(v=1997, col="red")
+```
+
+
+#Question 2. 
+
+# a.	Using the maxtemp dataset granted by loading fpp2, there are maximum annual temperature data in Celsius.  For more information, use help(maxtemp).  To see what you’re looking at, execute the command in ‘Examples’ in the help document.
+
+```{r, echo=TRUE, cache=TRUE}
+#install.packages("fpp2")
+#install.packages("ggplot")
+#install.packages("fma")
+#install.packages("expsmooth")
+#install.packages("ggplot2")
+
+library(fpp2)
+library(fma)
+
+autoplot(maxtemp)
+
+```
+
+# b.	We are only concerned with information after 1990.  Please eliminate unwanted information or subset information we care about.
+```{r, echo=TRUE, cache=TRUE}
+
+rangemaxtemp <- window(maxtemp, start = 1990 )
+autoplot(rangemaxtemp)
+
+```
+
+# c.	Utilize SES to predict the next five years of maximum temperatures in Melbourne.  Plot this information, including the prior information and the forecast.  Add the predicted value line across 1990-present as a separate line, preferably blue.  So, to review, you should have your fit, the predicted value line overlaying it, and a forecast through 2021, all on one axis. Find the AICc of this fitted model.  You will use that information later.
+
+```{r, echo=TRUE, cache=TRUE}
+data("maxtemp")
+rangemaxtemp <- window(maxtemp, start = 1990 )
+fit1 <- ses(rangemaxtemp, initial= "simple", h=5 )
+plot(fit1, ylab = "degrees in Celsius", xlab = "Years", main = "Melbourne Temperatures", fcol = "white", type = "o")
+lines(fitted(fit1), col= "blue", type = "o")  #predicted value 
+lines(fit1$mean, col= "green", type = "o")   #forecast line 
+legend ("topleft", lty=1, col=c(1, "blue", "green"), c("data", "predicted", "forecast 2021 fit line"), pch=1)
+
+fitone <- ses(rangemaxtemp)  #show AICc of SES fitted model
+fitone$model
+```
+
+# d.	Now use a damped Holt’s linear trend to also predict out five years.  Make sure initial=“optimal.”  As above, create a similar plot to 1C, but use the Holt fit instead.
+
+
+```{r, echo=TRUE, cache=TRUE}
+
+data("maxtemp")
+rangemaxtemp <- window(maxtemp, start = 1990 )
+fitholt <- holt(rangemaxtemp, damped=TRUE, initial= "optimal", h=5 )
+plot(fitholt, ylab = "degrees in Celsius", xlab = "Years", main = "Melbourne Temperatures", fcol = "white", type = "o")
+lines(fitted(fitholt), col= "blue", type = "o")  #predicted value 
+lines(fitholt$mean, col= "green", type = "o")   #forecast line 
+legend ("topleft", lty=1, col=c(1, "blue", "green"), c("data", "predicted", "forecast 2021 fit line"), pch=1)
+
+
+```
+
+# e.	Compare the AICc of the ses() and holt() models.  Which model is better here?
+# Overall, SES demonstrates the most accurate method for the prediction of future temperatures within the post 1990 dataset. 
+
+```{r, echo=TRUE, cache=TRUE}
+
+fitone <- ses(rangemaxtemp)  #show AICc of SES fitted model
+fitone$model
+
+fitholt2 <- holt(rangemaxtemp)  #show AICc of holt fitted model
+fitholt2$model
+
+```
+
+#Question 3. 
+# a.	Utilize the dygraphs library.  Read in both Unit11TimeSeries_Ollivander and _Gregorovitch.csv as two different data frames.  They do not have headers, so make sure you account for that.  This is a time series of Wands sold over years.
+
+# install.packages("dygraphs")
+
+```{r, echo=TRUE, cache=TRUE}
+# install.packages("dygraphs")
+fileone <- "Unit11TimeSeries_Ollivander.csv"      # assign the file name 
+Olli.df <- read.csv(fileone, header = FALSE, sep = ",")   # create a df 
+filetwo <- "Unit11TimeSeries_Gregorovitch.csv"     # assign the file name
+Greg.df <- read.csv(filetwo,  header = FALSE, sep = ",")   # create a df
+```
+
+# b. In both data sets, you’ll need to first convert the date-like variable to an actual Date class.
+
+```{r, echo=TRUE, cache=TRUE}
+Olli.df$V1 <- as.Date(Olli.df$V1, format = "%m/%d/%Y")  #convert the first column from a factor to a Date.
+
+class(Olli.df$V1)   #confirm the col is now class, Date.
+
+Greg.df$V1 <- as.Date(Greg.df$V1, format = "%m/%d/%Y")   #convert the first column from a factor to a Date. 
+class(Greg.df$V1)   #confirm the col is now class, Date. 
+
+```
+
+#c.	Use the library xts (and the xts() function in it) to make each data frame an xts object (effectively, a time series).  You’ll want to order.by the Date variable. 
+
+```{r, echo=TRUE, cache=TRUE}
+library(xts)
+library(zoo)
+Olli <- xts(Olli.df[,-1], order.by=as.Date(Olli.df[,1], "%m/%d/%Y"))
+head(Olli)
+
+Greg <- xts(Greg.df[,-1], order.by=as.Date(Greg.df[,1], "%m,%d,%Y"))
+head(Greg)
+
+```
+
+# d.	Bind the two xts objects together and create a dygraph from it. 	Give an effective title and x/y axes.
+#  Label each Series (via dySeries) to be the appropriate wand-maker.  So, one line should create a label for Ollivander and the other for Gregorovitch.
+#  Stack this graph and modify the two lines to be different colors (and not the default ones!)  Any colors are fine, but make sure they’re visible and that 
+#  Ollivander is a different color than Gregorovitch.
+# 	Activate a range selector and make it big enough to view. Use dyShading to illuminate approximately when Voldemort was revived and at-large: between 1995 to 1999. Enable Highlighting on the graph, so mousing over a line bolds it.
+
+
+```{r, echo=TRUE, cache=TRUE}
+
+Wand <- cbind(Greg, Olli)
+head(Wand)
+library(dygraphs)
+dygraph(Wand, main="Wands per Year by Ollivander and Gregorovitch", ylab = "Units Sold", xlab = "Year") %>%
+  dySeries("Greg", color = "blue") %>%
+  dySeries("Olli", color = "red") %>%
+  dyRangeSelector(height=100) %>%
+  dyShading(from ="1995-1-1", to = "1999-1-1", color = "#CCEBD6") %>%
+  dyHighlight(highlightSeriesOpts = list(strokeWidth = 3))
+
+```
+
